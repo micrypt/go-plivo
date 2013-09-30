@@ -12,7 +12,7 @@ import (
 
 const (
 	libraryVersion = "0.1"
-	defaultBaseURL = "https://api.plivo.com/%s/"
+	defaultBaseURL = "https://api.plivo.com/%s/Account/"
 	userAgent      = "go-plivo/" + libraryVersion
 	apiVersion     = "v1"
 )
@@ -30,6 +30,8 @@ type Client struct {
 
 	// Services used for talking to different parts of the API.
 	Account *AccountService
+	Application *ApplicationService
+	Call *CallService
 
 	authID    string
 	authToken string
@@ -42,6 +44,8 @@ func NewClient(authID, authToken string) *Client {
 
 	c := &Client{client: http.DefaultClient, BaseURL: baseURL, UserAgent: userAgent, authID: authID, authToken: authToken}
 	c.Account = &AccountService{client: c}
+	c.Application = &ApplicationService{client: c}
+	c.Call = &CallService{client: c}
 	return c
 }
 
@@ -170,4 +174,10 @@ func CheckResponse(r *http.Response) error {
 		json.Unmarshal(data, errorResponse)
 	}
 	return errorResponse
+}
+
+// limitOffset is a utility type for handling offsets in the API calls.
+type limitOffset struct {
+	limit  int64
+	offset int64
 }

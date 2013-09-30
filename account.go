@@ -47,7 +47,7 @@ type Subaccount struct {
 
 // Get fetches an account.
 func (s *AccountService) Get() (*Account, *Response, error) {
-	req, err := s.client.NewRequest("GET", "Account/"+s.client.authID+"/", nil)
+	req, err := s.client.NewRequest("GET", s.client.authID+"/", nil)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -65,7 +65,7 @@ type ModifyResponseBody struct {
 
 // Modify edits an account
 func (s *AccountService) Modify(acc *Account) (*Account, *Response, error) {
-	req, err := s.client.NewRequest("POST", "Account/"+s.client.authID+"/", acc)
+	req, err := s.client.NewRequest("POST", s.client.authID+"/", acc)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -88,7 +88,7 @@ type CreateResponseBody struct {
 // CreateSubaccount creates a subaccount
 func (s *AccountService) CreateSubaccount(sacc *Subaccount) (*Subaccount, *Response, error) {
 
-	req, err := s.client.NewRequest("POST", "Account/"+s.client.authID+"/Subaccount/", sacc)
+	req, err := s.client.NewRequest("POST", s.client.authID+"/Subaccount/", sacc)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -102,7 +102,7 @@ func (s *AccountService) CreateSubaccount(sacc *Subaccount) (*Subaccount, *Respo
 
 // ModifySubaccount edits a subaccount
 func (s *AccountService) ModifySubaccount(sacc *Subaccount) (*Subaccount, *Response, error) {
-	req, err := s.client.NewRequest("POST", "Account/"+s.client.authID+"/Subaccount/"+sacc.AuthID+"/", sacc)
+	req, err := s.client.NewRequest("POST", s.client.authID+"/Subaccount/"+sacc.AuthID+"/", sacc)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -116,7 +116,7 @@ func (s *AccountService) ModifySubaccount(sacc *Subaccount) (*Subaccount, *Respo
 
 // GetSubaccount fetches a subaccount.
 func (s *AccountService) GetSubaccount(subAuthID string) (*Subaccount, *Response, error) {
-	req, err := s.client.NewRequest("GET", "Account/"+s.client.authID+"/Subaccount/"+subAuthID+"/", nil)
+	req, err := s.client.NewRequest("GET", s.client.authID+"/Subaccount/"+subAuthID+"/", nil)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -132,16 +132,11 @@ type SubaccountsResponseBody struct {
 	Objects []*Subaccount `json:"objects"`
 }
 
-type limitOffset struct {
-	limit  int64
-	offset int64
-}
-
 // GetSubaccount fetches all subaccounts.
 func (s *AccountService) GetSubaccounts(limit, offset int64) ([]*Subaccount, *Response, error) {
 	limitOffset := &limitOffset{limit, offset}
 
-	req, err := s.client.NewRequest("GET", "Account/"+s.client.authID+"/Subaccount/", limitOffset)
+	req, err := s.client.NewRequest("GET", s.client.authID+"/Subaccount/", limitOffset)
 
 	if err != nil {
 		return nil, nil, err
@@ -155,7 +150,7 @@ func (s *AccountService) GetSubaccounts(limit, offset int64) ([]*Subaccount, *Re
 
 // DeleteSubaccount deletes a subaccount.
 func (s *AccountService) DeleteSubaccount(subAuthID string) (*Response, error) {
-	req, err := s.client.NewRequest("DELETE", "Account/"+s.client.authID+"/Subaccount/"+subAuthID+"/", nil)
+	req, err := s.client.NewRequest("DELETE", s.client.authID+"/Subaccount/"+subAuthID+"/", nil)
 	if err != nil {
 		return nil, err
 	}
