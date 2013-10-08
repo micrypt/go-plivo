@@ -10,13 +10,13 @@ type Application struct {
 	AppName           string `json:"app_name,omitempty"`
 	ProductionApp     bool   `json:"production_app,omitempty"`
 	AppID             string `json:"app_id,omitempty"`
-	HangupUrl         string `json:"hangup_url,omitempty"`
-	AnswerUrl         string `json:"answer_url,omitempty"`
-	MessageUrl        string `json:"message_url,omitempty"`
-	ResourceUri       string `json:"resource_uri,omitempty"`
+	HangupURL         string `json:"hangup_url,omitempty"`
+	AnswerURL         string `json:"answer_url,omitempty"`
+	MessageURL        string `json:"message_url,omitempty"`
+	ResourceURI       string `json:"resource_uri,omitempty"`
 	HangupMethod      string `json:"hangup_method,omitempty"`
 	MessageMethod     string `json:"message_method,omitempty"`
-	FallbackAnswerUrl string `json:"fallback_answer_url,omitempty"`
+	FallbackAnswerURL string `json:"fallback_answer_url,omitempty"`
 	AnswerMethod      string `json:"answer_method,omitempty"`
 	ApiID             string `json:"api_id,omitempty"`
 

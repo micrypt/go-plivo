@@ -8,14 +8,14 @@ type CallMakeParams struct {
 	// Required parameters.
 	From      string `json:"from,omitempty"`
 	To        string `json:"to,omitempty"`
-	AnswerUrl string `json:"answer_url,omitempty"`
+	AnswerURL string `json:"answer_url,omitempty"`
 	// Optional parameters.
 	AnswerMethod         string `json:"answer_method,omitempty"`
-	RingUrl              string `json:"ring_url,omitempty"`
+	RingURL              string `json:"ring_url,omitempty"`
 	RingMethod           string `json:"ring_method,omitempty"`
-	HangupUrl            string `json:"hangup_url,omitempty"`
+	HangupURL            string `json:"hangup_url,omitempty"`
 	HangupMethod         string `json:"hangup_method,omitempty"`
-	FallbackUrl          string `json:"fallback_url,omitempty"`
+	FallbackURL          string `json:"fallback_url,omitempty"`
 	FallbackMethod       string `json:"fallback_method,omitempty"`
 	CallerName           string `json:"caller_name,omitempty"`
 	SendDigits           string `json:"send_digits,omitempty"`
@@ -31,21 +31,21 @@ type CallMakeParams struct {
 type Call struct {
 	FromNumber     string `json:"from_number,omitempty"`
 	ToNumber       string `json:"to_number,omitempty"`
-	AnswerUrl      string `json:"answer_url,omitempty"`
+	AnswerURL      string `json:"answer_url,omitempty"`
 	CallUUID       string `json:"call_uuid,omitempty"`
 	ParentCallUUID string `json:"parent_call_uuid,omitempty"`
 	EndTime        string `json:"end_time,omitempty"`
 	TotalAmount    string `json:"total_amount,omitempty"`
 	CallDirection  string `json:"call_direction,omitempty"`
 	CallDuration   int64  `json:"call_duration,omitempty"`
-	MessageUrl     string `json:"message_url,omitempty"`
-	ResourceUri    string `json:"resource_uri,omitempty"`
+	MessageURL     string `json:"message_url,omitempty"`
+	ResourceURI    string `json:"resource_uri,omitempty"`
 }
 
 type LiveCall struct {
 	From           string `json:"from,omitempty"`
 	To             string `json:"to,omitempty"`
-	AnswerUrl      string `json:"answer_url,omitempty"`
+	AnswerURL      string `json:"answer_url,omitempty"`
 	CallUUID       string `json:"call_uuid,omitempty"`
 	CallerName     string `json:"caller_name,omitempty"`
 	ParentCallUUID string `json:"parent_call_uuid,omitempty"`
@@ -160,9 +160,9 @@ func (s *CallService) Hangup(uuid string) (*Response, error) {
 
 type CallTransferParams struct {
 	legs       string `json:"legs,omitempty"`
-	AlegUrl    string `json:"aleg_url,omitempty"`
+	AlegURL    string `json:"aleg_url,omitempty"`
 	AlegMethod string `json:"aleg_method,omitempty"`
-	BlegUrl    string `json:"bleg_url,omitempty"`
+	BlegURL    string `json:"bleg_url,omitempty"`
 	BlegMethod string `json:"bleg_method,omitempty"`
 }
 
@@ -190,15 +190,15 @@ type CallRecordParams struct {
 	TimeLimit           int64  `json:"time_limit,omitempty"`
 	FileFormat          string `json:"file_format,omitempty"`
 	TranscriptionType   string `json:"transcription_type,omitempty"`
-	TranscriptionUrl    string `json:"transcription_url,omitempty"`
+	TranscriptionURL    string `json:"transcription_url,omitempty"`
 	TranscriptionMethod string `json:"transcription_method,omitempty"`
-	CallbackUrl         string `json:"callback_url,omitempty"`
+	CallbackURL         string `json:"callback_url,omitempty"`
 	CallbackMethod      string `json:"callback_method,omitempty"`
 }
 
 type CallRecordResponseBody struct {
 	Message string `json:"message,omitempty"`
-	Url     string `json:"url,omitempty"`
+	URL     string `json:"url,omitempty"`
 }
 
 // Record records a call.
@@ -218,22 +218,18 @@ func (c *CallService) Record(uuid string, cp *CallRecordParams) (*Response, erro
 
 // StopRecording cancels a call recording.
 func (c *CallService) StopRecording(uuid, url string) (*Response, error) {
-
 	rp := struct{ URL string }{url}
-
 	req, err := c.client.NewRequest("DELETE", c.client.authID+"/Call/"+uuid+"/Record/", rp)
-
 	if err != nil {
 		return nil, err
 	}
-
 	req.Header.Add("Content-Type", "application/json")
 	resp, err := c.client.Do(req, nil)
 	return resp, err
 }
 
 type CallPlayParams struct {
-	Urls   string `json:"urls"`
+	URLs   string `json:"urls"`
 	Length string `json:"length,omitempty"`
 	Legs   string `json:"legs,omitempty"`
 	Loop   bool   `json:"loop,omitempty"`
@@ -257,7 +253,7 @@ func (c *CallService) Play(uuid string, cp *CallPlayParams) (*Response, error) {
 	return resp, err
 }
 
-// StopPlayings stops playing sounds during a call.
+// StopPlaying stops playing sounds during a call.
 func (c *CallService) StopPlaying(uuid string) (*Response, error) {
 	req, err := c.client.NewRequest("DELETE", c.client.authID+"/Call/"+uuid+"/Play/", nil)
 	if err != nil {
