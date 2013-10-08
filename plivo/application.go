@@ -25,14 +25,14 @@ type Application struct {
 	DefaultEndpointApp bool `json:"default_endpoint_app,omitempty"`
 }
 
-// Stores response for CreateSubaccount call
+// Stores response for Create call
 type ApplicationCreateResponseBody struct {
 	Message string `json:"message"`
 	ApiID   string `json:"api_id"`
 	AppID   string `json:"app_id"`
 }
 
-// CreateApplication creates an application
+// CreateApplication creates an application.
 func (s *ApplicationService) Create(app *Application) (*Application, *Response, error) {
 
 	req, err := s.client.NewRequest("POST", s.client.authID+"/Application/", app)
@@ -70,7 +70,7 @@ func (s *ApplicationService) GetApplications(limit, offset int64) ([]*Applicatio
 	return aResp.Objects, resp, err
 }
 
-// GetApplication fetches a specified application.
+// Get fetches a specified application.
 func (s *ApplicationService) Get(appID string) (*Application, *Response, error) {
 	req, err := s.client.NewRequest("GET", s.client.authID+"/Application/"+appID+"/", nil)
 	if err != nil {
@@ -82,7 +82,7 @@ func (s *ApplicationService) Get(appID string) (*Application, *Response, error) 
 	return aResp, resp, err
 }
 
-// ModifyApplication edits an application
+// Modify edits an application
 func (s *ApplicationService) Modify(app *Application) (*Application, *Response, error) {
 	req, err := s.client.NewRequest("POST", s.client.authID+"/Application/"+app.AppID+"/", app)
 	if err != nil {
