@@ -1,3 +1,6 @@
+// Public Domain (-) 2013 The GoPlivo Authors.
+// See the GoPlivo UNLICENSE file for details.
+
 package plivo
 
 type ConferenceService struct {
