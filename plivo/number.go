@@ -17,6 +17,14 @@ type Number struct {
 	Application  string `json:"application,omitempty"`
 	AddedOn      string `json:"added_on,omitempty"`
 	ResourceURI  string `json:"resource_uri,omitempty"`
+	// Rental-related fields
+	GroupID     string `json:"group_id,omitempty"`
+	Prefix      string `json:"string,omitempty"`
+	SetupRate   string `json:"setup_rate,omitempty"`
+	RentalRate  string `json:"rental_rate,omitempty"`
+	Stock       string `json:"stock,omitempty"`
+	VoiceRate   string `json:"voice_rate,omitempty"`
+	SMSRate     string `json:"sms_rate,omitempty"`
 }
 
 type NumberGetAllParams struct {
@@ -28,7 +36,7 @@ type NumberGetAllParams struct {
 	Offset           int64  `json:"offset:omitempty"`
 }
 
-type NumberGetAllResponseBody struct {
+type NumbersResponseBody struct {
 	ApiID   string    `json:"api_id"`
 	Meta    *Meta     `json:"meta"`
 	Objects []*Number `json:"objects"`
@@ -41,10 +49,10 @@ func (s *NumberService) GetAll(p *NumberGetAllParams) ([]*Number, *Response, err
 	if err != nil {
 		return nil, nil, err
 	}
-	aResp := &NumberGetAllResponseBody{}
-	resp, err := s.client.Do(req, aResp)
-	resp.Meta = aResp.Meta
-	return aResp.Objects, resp, err
+	nResp := &NumbersResponseBody{}
+	resp, err := s.client.Do(req, nResp)
+	resp.Meta = nResp.Meta
+	return nResp.Objects, resp, err
 }
 
 // Get gets details of a rented number.
@@ -53,9 +61,9 @@ func (s *NumberService) Get(number string) (*Number, *Response, error) {
 	if err != nil {
 		return nil, nil, err
 	}
-	aResp := &Number{}
-	resp, err := s.client.Do(req, aResp)
-	return aResp, resp, err
+	nResp := &Number{}
+	resp, err := s.client.Do(req, nResp)
+	return nResp, resp, err
 }
 
 type NumberAddParams struct {
@@ -74,9 +82,9 @@ func (c *NumberService) Add(np *NumberAddParams) (*Response, error) {
 	if err != nil {
 		return nil, err
 	}
-	aResp := &ModifyResponseBody{}
+	nResp := &ModifyResponseBody{}
 	req.Header.Add("Content-Type", "application/json")
-	resp, err := c.client.Do(req, aResp)
+	resp, err := c.client.Do(req, nResp)
 	return resp, err
 }
 
@@ -85,15 +93,15 @@ type NumberEditParams struct {
 	Subaccount string `json:"subaccount,omitempty"`
 }
 
-// Add adds a number from your own carrier.
-func (c *NumberService) Add(number string, np *NumberEditParams) (*Response, error) {
+// Edit edits a number.
+func (c *NumberService) Edit(number string, np *NumberEditParams) (*Response, error) {
 	req, err := c.client.NewRequest("POST", c.client.authID+"/Number/"+number+"/", np)
 	if err != nil {
 		return nil, err
 	}
-	aResp := &ModifyResponseBody{}
+	nResp := &ModifyResponseBody{}
 	req.Header.Add("Content-Type", "application/json")
-	resp, err := c.client.Do(req, aResp)
+	resp, err := c.client.Do(req, nResp)
 	return resp, err
 }
 
@@ -104,5 +112,55 @@ func (s *NumberService) Unrent(number string) (*Response, error) {
 		return nil, err
 	}
 	resp, err := s.client.Do(req, nil)
+	return resp, err
+}
+
+type NumberSearchParams struct {
+	CountryISO string `json:"country_iso"`
+	NumberType string `json:"number_type,omitempty"`
+	Prefix     string `json:"prefix,omitempty"`
+	Region     string `json:"region,omitempty"`
+	Services   string `json:"services,omitempty"`
+	Limit      int64  `json:"limit:omitempty"`
+	Offset     int64  `json:"offset:omitempty"`
+}
+
+func (s *NumberService) Search(sp *NumberSearchParams) ([]*Number, *Response, error) {
+	req, err := s.client.NewRequest("GET", s.client.authID+"/AvailableNumberGroup/", sp)
+
+	if err != nil {
+		return nil, nil, err
+	}
+	nResp := &NumbersResponseBody{}
+	resp, err := s.client.Do(req, nResp)
+	resp.Meta = nResp.Meta
+	return nResp.Objects, resp, err
+}
+
+type NumberRentalParams struct {
+	Quantity int64  `json:"quantity:omitempty"`
+	AppID    string `json:"app_id,omitempty"`
+}
+
+type NumberRentalResponseBody struct {
+	Numbers []*NumberRental `json:"numbers"`
+	Status  string          `json:"objects,omitempty"`
+	Message string          `json:"message,omitempty"`
+	Details string          `json:"details,omitempty"`
+}
+
+type NumberRental struct {
+	Number string `json:"api_id"`
+}
+
+// Rent rents a number.
+func (c *NumberService) Rent(gid string, np *NumberRentalParams) (*Response, error) {
+	req, err := c.client.NewRequest("POST", c.client.authID+"/AvailableNumberGroup/"+gid+"/", np)
+	if err != nil {
+		return nil, err
+	}
+	nResp := &NumberRentalResponseBody{}
+	req.Header.Add("Content-Type", "application/json")
+	resp, err := c.client.Do(req, nResp)
 	return resp, err
 }
