@@ -216,17 +216,123 @@ func (c *CallService) Record(uuid string, cp *CallRecordParams) (*Response, erro
 	return resp, err
 }
 
-// Stop cancels a call recording.
+// StopRecording cancels a call recording.
 func (c *CallService) StopRecording(uuid, url string) (*Response, error) {
 
 	rp := struct{ URL string }{url}
 
-	req, err := c.client.NewRequest("POST", c.client.authID+"/Call/"+uuid+"/Record/", rp)
+	req, err := c.client.NewRequest("DELETE", c.client.authID+"/Call/"+uuid+"/Record/", rp)
 
 	if err != nil {
 		return nil, err
 	}
 
+	req.Header.Add("Content-Type", "application/json")
+	resp, err := c.client.Do(req, nil)
+	return resp, err
+}
+
+type CallPlayParams struct {
+	Urls   string `json:"urls"`
+	Length string `json:"length,omitempty"`
+	Legs   string `json:"legs,omitempty"`
+	Loop   bool   `json:"loop,omitempty"`
+	Mix    bool   `json:"mix,omitempty"`
+}
+
+type CallPlayResponseBody struct {
+	Message string `json:"message,omitempty"`
+	ApiID   string `json:"api_id,omitempty"`
+}
+
+// Play plays and controls sounds during a call.
+func (c *CallService) Play(uuid string, cp *CallPlayParams) (*Response, error) {
+	req, err := c.client.NewRequest("POST", c.client.authID+"/Call/"+uuid+"/Play/", cp)
+	if err != nil {
+		return nil, err
+	}
+	aResp := &CallPlayResponseBody{}
+	req.Header.Add("Content-Type", "application/json")
+	resp, err := c.client.Do(req, aResp)
+	return resp, err
+}
+
+// StopPlayings stops playing sounds during a call.
+func (c *CallService) StopPlaying(uuid string) (*Response, error) {
+	req, err := c.client.NewRequest("DELETE", c.client.authID+"/Call/"+uuid+"/Play/", nil)
+	if err != nil {
+		return nil, err
+	}
+	req.Header.Add("Content-Type", "application/json")
+	resp, err := c.client.Do(req, nil)
+	return resp, err
+}
+
+type CallSpeakParams struct {
+	Text     string `json:"text"`
+	Voice    string `json:"length,omitempty"`
+	Language string `json:"language,omitempty"`
+	Legs     string `json:"legs,omitempty"`
+	Loop     bool   `json:"loop,omitempty"`
+	Mix      bool   `json:"mix,omitempty"`
+}
+
+type CallSpeakResponseBody struct {
+	Message string `json:"message,omitempty"`
+	ApiID   string `json:"api_id,omitempty"`
+}
+
+// Speak plays text during a call (text to speech).
+func (c *CallService) Speak(uuid string, cp *CallSpeakParams) (*Response, error) {
+	req, err := c.client.NewRequest("POST", c.client.authID+"/Call/"+uuid+"/Speak/", cp)
+	if err != nil {
+		return nil, err
+	}
+	aResp := &CallSpeakResponseBody{}
+	req.Header.Add("Content-Type", "application/json")
+	resp, err := c.client.Do(req, aResp)
+	return resp, err
+}
+
+// StopSpeaking stops playing text during a call.
+func (c *CallService) StopSpeaking(uuid string) (*Response, error) {
+	req, err := c.client.NewRequest("DELETE", c.client.authID+"/Call/"+uuid+"/Speak/", nil)
+	if err != nil {
+		return nil, err
+	}
+	req.Header.Add("Content-Type", "application/json")
+	resp, err := c.client.Do(req, nil)
+	return resp, err
+}
+
+type CallDTMFParams struct {
+	Digits     string `json:"digits"`
+	Legs     string `json:"legs,omitempty"`
+}
+
+type CallDTMFResponseBody struct {
+	Message string `json:"message,omitempty"`
+	ApiID   string `json:"api_id,omitempty"`
+}
+
+// DTMF send digits on a call.
+func (c *CallService) DTMF(uuid string, cp *CallDTMFParams) (*Response, error) {
+	req, err := c.client.NewRequest("POST", c.client.authID+"/Call/"+uuid+"/DTMF/", cp)
+	if err != nil {
+		return nil, err
+	}
+	aResp := &CallDTMFResponseBody{}
+	req.Header.Add("Content-Type", "application/json")
+	resp, err := c.client.Do(req, aResp)
+	return resp, err
+}
+
+// Cancel hangups a call request.
+func (c *CallService) Cancel(request_uuid string) (*Response, error) {
+	req, err := c.client.NewRequest("DELETE", c.client.authID+"/Request/"+request_uuid, nil)
+	if err != nil {
+		return nil, err
+	}
 	req.Header.Add("Content-Type", "application/json")
 	resp, err := c.client.Do(req, nil)
 	return resp, err
