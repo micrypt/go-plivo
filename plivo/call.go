@@ -65,13 +65,10 @@ type CallMakeResponseBody struct {
 
 // Make creates a call.
 func (c *CallService) Make(cp *CallMakeParams) (*Response, error) {
-
 	req, err := c.client.NewRequest("POST", c.client.authID+"/Call/", cp)
-
 	if err != nil {
 		return nil, err
 	}
-
 	aResp := &CallMakeResponseBody{}
 	req.Header.Add("Content-Type", "application/json")
 	resp, err := c.client.Do(req, aResp)
@@ -98,13 +95,10 @@ type CallGetAllResponseBody struct {
 
 // GetAll fetches all calls.
 func (s *CallService) GetAll(p *CallGetAllParams) ([]*Call, *Response, error) {
-
 	req, err := s.client.NewRequest("GET", s.client.authID+"/Call/", p)
-
 	if err != nil {
 		return nil, nil, err
 	}
-
 	aResp := &CallGetAllResponseBody{}
 	resp, err := s.client.Do(req, aResp)
 	resp.Meta = aResp.Meta
@@ -117,7 +111,6 @@ func (s *CallService) Get(callID string) (*Call, *Response, error) {
 	if err != nil {
 		return nil, nil, err
 	}
-
 	aResp := &Call{}
 	resp, err := s.client.Do(req, aResp)
 	return aResp, resp, err
@@ -125,13 +118,10 @@ func (s *CallService) Get(callID string) (*Call, *Response, error) {
 
 // GetCallLive fetches all live calls.
 func (s *CallService) GetAllLive() ([]*Call, *Response, error) {
-
 	req, err := s.client.NewRequest("GET", s.client.authID+"/Call/?status=live", nil)
-
 	if err != nil {
 		return nil, nil, err
 	}
-
 	aResp := &CallGetAllResponseBody{}
 	resp, err := s.client.Do(req, aResp)
 	resp.Meta = aResp.Meta
@@ -144,7 +134,6 @@ func (s *CallService) GetLive(uuid string) (*LiveCall, *Response, error) {
 	if err != nil {
 		return nil, nil, err
 	}
-
 	aResp := &LiveCall{}
 	resp, err := s.client.Do(req, aResp)
 	return aResp, resp, err
@@ -156,7 +145,6 @@ func (s *CallService) Hangup(uuid string) (*Response, error) {
 	if err != nil {
 		return nil, err
 	}
-
 	resp, err := s.client.Do(req, nil)
 	return resp, err
 }
@@ -176,13 +164,10 @@ type CallTransferResponseBody struct {
 
 // Transfer transfers a call.
 func (c *CallService) Transfer(cp *CallTransferParams) (*Response, error) {
-
 	req, err := c.client.NewRequest("POST", c.client.authID+"/Call/", cp)
-
 	if err != nil {
 		return nil, err
 	}
-
 	aResp := &CallTransferResponseBody{}
 	req.Header.Add("Content-Type", "application/json")
 	resp, err := c.client.Do(req, aResp)
@@ -206,13 +191,10 @@ type CallRecordResponseBody struct {
 
 // Record records a call.
 func (c *CallService) Record(uuid string, cp *CallRecordParams) (*Response, error) {
-
 	req, err := c.client.NewRequest("POST", c.client.authID+"/Call/"+uuid+"/Record/", cp)
-
 	if err != nil {
 		return nil, err
 	}
-
 	aResp := &CallRecordResponseBody{}
 	req.Header.Add("Content-Type", "application/json")
 	resp, err := c.client.Do(req, aResp)
