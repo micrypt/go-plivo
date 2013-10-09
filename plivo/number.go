@@ -18,13 +18,13 @@ type Number struct {
 	AddedOn      string `json:"added_on,omitempty"`
 	ResourceURI  string `json:"resource_uri,omitempty"`
 	// Rental-related fields
-	GroupID     string `json:"group_id,omitempty"`
-	Prefix      string `json:"string,omitempty"`
-	SetupRate   string `json:"setup_rate,omitempty"`
-	RentalRate  string `json:"rental_rate,omitempty"`
-	Stock       string `json:"stock,omitempty"`
-	VoiceRate   string `json:"voice_rate,omitempty"`
-	SMSRate     string `json:"sms_rate,omitempty"`
+	GroupID    string `json:"group_id,omitempty"`
+	Prefix     string `json:"string,omitempty"`
+	SetupRate  string `json:"setup_rate,omitempty"`
+	RentalRate string `json:"rental_rate,omitempty"`
+	Stock      string `json:"stock,omitempty"`
+	VoiceRate  string `json:"voice_rate,omitempty"`
+	SMSRate    string `json:"sms_rate,omitempty"`
 }
 
 type NumberGetAllParams struct {
