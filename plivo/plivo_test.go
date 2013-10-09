@@ -72,7 +72,7 @@ func TestAccountCreateSubaccount(t *testing.T) {
 	setup()
 	client = NewClient(authID, authToken)
 	sacc := &Subaccount{Name: testAccount, Enabled: false}
-	sacc, _, err := client.Account.CreateSubaccount(sacc)
+	_, err := client.Account.CreateSubaccount(sacc)
 	if err != nil {
 		t.Errorf("AccountCreateSubaccount failed: %v", err)
 	} else {

@@ -89,18 +89,18 @@ type CreateResponseBody struct {
 }
 
 // CreateSubaccount creates a subaccount
-func (s *AccountService) CreateSubaccount(sacc *Subaccount) (*Subaccount, *Response, error) {
+func (s *AccountService) CreateSubaccount(sacc *Subaccount) (*Response, error) {
 
 	req, err := s.client.NewRequest("POST", s.client.authID+"/Subaccount/", sacc)
 	if err != nil {
-		return nil, nil, err
+		return nil, err
 	}
 
 	aResp := &CreateResponseBody{}
 	req.Header.Add("Content-Type", "application/json")
 	resp, err := s.client.Do(req, aResp)
 	sacc.AuthID = aResp.AuthID
-	return sacc, resp, err
+	return resp, err
 }
 
 // ModifySubaccount edits a subaccount
