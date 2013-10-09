@@ -35,6 +35,10 @@ type Client struct {
 	Account *AccountService
 	Application *ApplicationService
 	Call *CallService
+    Message *MessageService
+    Number *NumberService
+    Endpoint *EndpointService
+    Conference *ConferenceService
 
 	authID    string
 	authToken string
@@ -49,6 +53,10 @@ func NewClient(authID, authToken string) *Client {
 	c.Account = &AccountService{client: c}
 	c.Application = &ApplicationService{client: c}
 	c.Call = &CallService{client: c}
+	c.Message = &MessageService{client: c}
+	c.Number = &NumberService{client: c}
+	c.Endpoint = &EndpointService{client: c}
+	c.Conference = &ConferenceService{client: c}
 	return c
 }
 
