@@ -164,17 +164,3 @@ func (c *NumberService) Rent(gid string, np *NumberRentalParams) ([]*NumberRenta
 	resp, err := c.client.Do(req, nResp)
 	return nResp.Numbers, resp, err
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
