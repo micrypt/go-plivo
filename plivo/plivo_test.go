@@ -18,7 +18,7 @@ var (
 	authToken   string
 	FromNumber  string
 	ToNumber    string
-	AnswerUrl   string
+	AnswerURL   string
 )
 
 func loadJsonConfig(path string) (map[string]string, error) {
@@ -43,7 +43,7 @@ func setup() {
 
 	FromNumber = config["from_number"]
 	ToNumber = config["to_number"]
-	AnswerUrl = config["answer_url"]
+	AnswerURL = config["answer_url"]
 }
 
 func TestAccountGet(t *testing.T) {
@@ -84,7 +84,7 @@ func TestAccountModifySubaccount(t *testing.T) {
 	setup()
 	client = NewClient(authID, authToken)
 	sacc := &Subaccount{Name: testAccount + "_mod", Enabled: false}
-	sacc, _, err := client.Account.CreateSubaccount(sacc)
+	 _, err := client.Account.CreateSubaccount(sacc)
 	if err != nil {
 		t.Errorf("TestAccountModifySubaccount failed at account creation: %v", err)
 	}
@@ -102,7 +102,7 @@ func TestAccountGetSubaccount(t *testing.T) {
 	client = NewClient(authID, authToken)
 
 	sacc := &Subaccount{Name: testAccount + "_get", Enabled: false}
-	sacc, _, err := client.Account.CreateSubaccount(sacc)
+	_, err := client.Account.CreateSubaccount(sacc)
 	if err != nil {
 		t.Errorf("TestAccountGetSubaccount failed at account creation: %v", err)
 	}
@@ -121,7 +121,7 @@ func TestAccountGetSubaccounts(t *testing.T) {
 
 	for i := 0; i < 2; i++ {
 		sacc := &Subaccount{Name: testAccount + fmt.Sprintf("_get_mult_%d", i), Enabled: false}
-		sacc, _, err := client.Account.CreateSubaccount(sacc)
+		_, err := client.Account.CreateSubaccount(sacc)
 		if err != nil {
 			t.Errorf("TestAccountGetSubaccounts failed at account creation: %v", err)
 		}
@@ -139,7 +139,7 @@ func TestAccountDeleteSubaccount(t *testing.T) {
 	client = NewClient(authID, authToken)
 
 	sacc := &Subaccount{Name: testAccount + "_del", Enabled: false}
-	sacc, _, err := client.Account.CreateSubaccount(sacc)
+	_, err := client.Account.CreateSubaccount(sacc)
 	if err != nil {
 		t.Errorf("TestAccountDeleteSubaccount failed at account creation: %v", err)
 	}
@@ -155,7 +155,7 @@ func TestAccountDeleteSubaccount(t *testing.T) {
 func TestApplicationCreate(t *testing.T) {
 	setup()
 	client = NewClient(authID, authToken)
-	app := &Application{AnswerUrl: AnswerUrl, AppName: "Test App (Create)"}
+	app := &Application{AnswerURL: AnswerURL, AppName: "Test App (Create)"}
 	app, _, err := client.Application.Create(app)
 	if err != nil {
 		t.Errorf("ApplicationCreate failed: %v", err)
@@ -178,7 +178,7 @@ func TestApplicationGet(t *testing.T) {
 	setup()
 	client = NewClient(authID, authToken)
 
-	app := &Application{AnswerUrl: "http://example.com/answer/", AppName: "Test App (Get)"}
+	app := &Application{AnswerURL: "http://example.com/answer/", AppName: "Test App (Get)"}
 	app, _, err := client.Application.Create(app)
 	if err != nil {
 		t.Errorf("ApplicationGet failed at application creation: %v", err)
@@ -196,7 +196,7 @@ func TestApplicationDelete(t *testing.T) {
 	setup()
 	client = NewClient(authID, authToken)
 
-	app := &Application{AnswerUrl: AnswerUrl, AppName: "Test App (Delete)"}
+	app := &Application{AnswerURL: AnswerURL, AppName: "Test App (Delete)"}
 	app, _, err := client.Application.Create(app)
 	if err != nil {
 		t.Errorf("ApplicationDelete failed at application creation: %v", err)
@@ -213,7 +213,7 @@ func TestApplicationDelete(t *testing.T) {
 func TestCallMake(t *testing.T) {
 	setup()
 	client = NewClient(authID, authToken)
-	cp := &CallMakeParams{From: FromNumber, To: ToNumber, AnswerUrl: AnswerUrl}
+	cp := &CallMakeParams{From: FromNumber, To: ToNumber, AnswerURL: AnswerURL}
 	_, err := client.Call.Make(cp)
 	if err != nil {
 		t.Errorf("CallMake failed: %v", err)
