@@ -116,13 +116,13 @@ func (s *NumberService) Unrent(number string) (*Response, error) {
 }
 
 type NumberSearchParams struct {
-	CountryISO string `json:"country_iso"`
-	NumberType string `json:"number_type,omitempty"`
-	Prefix     string `json:"prefix,omitempty"`
-	Region     string `json:"region,omitempty"`
-	Services   string `json:"services,omitempty"`
-	Limit      int64  `json:"limit:omitempty"`
-	Offset     int64  `json:"offset:omitempty"`
+	CountryISO string `url:"country_iso"`
+	NumberType string `url:"number_type,omitempty"`
+	Prefix     string `url:"prefix,omitempty"`
+	Region     string `url:"region,omitempty"`
+	Services   string `url:"services,omitempty"`
+	Limit      int64  `url:"limit:omitempty"`
+	Offset     int64  `url:"offset:omitempty"`
 }
 
 func (s *NumberService) Search(sp *NumberSearchParams) ([]*Number, *Response, error) {
