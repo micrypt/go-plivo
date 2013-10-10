@@ -154,13 +154,27 @@ type NumberRental struct {
 }
 
 // Rent rents a number.
-func (c *NumberService) Rent(gid string, np *NumberRentalParams) (*Response, error) {
+func (c *NumberService) Rent(gid string, np *NumberRentalParams) ([]*NumberRental, *Response, error) {
 	req, err := c.client.NewRequest("POST", c.client.authID+"/AvailableNumberGroup/"+gid+"/", np)
 	if err != nil {
-		return nil, err
+		return nil, nil, err
 	}
 	nResp := &NumberRentalResponseBody{}
 	req.Header.Add("Content-Type", "application/json")
 	resp, err := c.client.Do(req, nResp)
-	return resp, err
+	return nResp.Numbers, resp, err
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
