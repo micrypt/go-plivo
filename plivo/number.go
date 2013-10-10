@@ -150,7 +150,7 @@ type NumberRentalResponseBody struct {
 }
 
 type NumberRental struct {
-	Number string `json:"api_id"`
+	Number string `json:"number"`
 }
 
 // Rent rents a number.
