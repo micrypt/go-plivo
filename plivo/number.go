@@ -22,7 +22,7 @@ type Number struct {
 	Prefix     string `json:"string,omitempty"`
 	SetupRate  string `json:"setup_rate,omitempty"`
 	RentalRate string `json:"rental_rate,omitempty"`
-	Stock      string `json:"stock,omitempty"`
+	Stock      int64 `json:"stock,omitempty"`
 	VoiceRate  string `json:"voice_rate,omitempty"`
 	SMSRate    string `json:"sms_rate,omitempty"`
 }
