@@ -77,7 +77,7 @@ func (c *CallService) Make(cp *CallMakeParams) (*Response, error) {
 
 type CallGetAllParams struct {
 	// Query parameters.
-	SubAccount    string `json:"subaccount,omitempty"`
+	Subaccount    string `json:"subaccount,omitempty"`
 	CallDirection string `json:"call_direction,omitempty"`
 	FromNumber    string `json:"from_number,omitempty"`
 	ToNumber      string `json:"to_number,omitempty"`
