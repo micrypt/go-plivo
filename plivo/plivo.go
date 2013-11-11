@@ -32,13 +32,13 @@ type Client struct {
 	UserAgent string
 
 	// Services used for talking to different parts of the API.
-	Account *AccountService
+	Account     *AccountService
 	Application *ApplicationService
-	Call *CallService
-    Message *MessageService
-    Number *NumberService
-    Endpoint *EndpointService
-    Conference *ConferenceService
+	Call        *CallService
+	Message     *MessageService
+	Number      *NumberService
+	Endpoint    *EndpointService
+	Conference  *ConferenceService
 
 	authID    string
 	authToken string
