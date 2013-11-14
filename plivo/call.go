@@ -287,8 +287,8 @@ func (c *CallService) StopSpeaking(uuid string) (*Response, error) {
 }
 
 type CallDTMFParams struct {
-	Digits     string `json:"digits"`
-	Legs     string `json:"legs,omitempty"`
+	Digits string `json:"digits"`
+	Legs   string `json:"legs,omitempty"`
 }
 
 type CallDTMFResponseBody struct {
