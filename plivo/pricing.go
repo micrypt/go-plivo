@@ -8,8 +8,14 @@ type PricingService struct {
 }
 
 type Pricing struct {
-	Pricing string
+	ApiID       string        `json:"api_id,omitempty"`
+	Country     string        `json:"country,omitempty"`
+	CountryCode string        `json:"country_code,omitempty"`
+	CountryISO  string        `json:"country_iso,omitempty"`
+	Message     []RateMessage `json:"message,omitempty"`
 }
+
+type RateMessage map[string][]string
 
 type PricingGetParams struct {
 	CountryISO string
