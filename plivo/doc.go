@@ -10,12 +10,12 @@ A short example of retrieving account details:
 
   func main() {
     client = plivo.NewClient(authID, authToken)
-	acc, _, err := client.Account.Get()
-	if err != nil {
-	  t.Errorf("AccountGet failed: %v", err)
-	} else {
-	  t.Logf("Account: %v\n", acc)
-	}
+    acc, _, err := client.Account.Get()
+    if err != nil {
+      t.Errorf("AccountGet failed: %v", err)
+    } else {
+      t.Logf("Account: %v\n", acc)
+    }
   }
 */
 package plivo
