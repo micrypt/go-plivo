@@ -2,7 +2,9 @@
 // See the GoPlivo UNLICENSE file for details.
 
 /*
-Package plivo is client for the Plivo.com API. It is documented at:
+Package plivo is a client for the Plivo.com API. It is documented at:
+
+http://go.pkgdoc.org/github.com/micrypt/go-plivo/plivo
 
 A short example of retrieving account details:
 
