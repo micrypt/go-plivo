@@ -19,4 +19,4 @@ import "github.com/micrypt/go-plivo/plivo"
 
 Run `go doc` or see it online:
 
-* http://go.pkgdoc.org/github.com/micrypt/go-plivo/plivo
+* http://godoc.org/github.com/micrypt/go-plivo/plivo
