@@ -1,4 +1,4 @@
-// Public Domain (-) 2013 The GoPlivo Authors.
+// Public Domain (-) 2013-2014 The GoPlivo Authors.
 // See the GoPlivo UNLICENSE file for details.
 
 package plivo
@@ -18,17 +18,17 @@ type MessageSendParams struct {
 }
 
 type Message struct {
-	ToNumber string `json:"to_number,omitempty"`
-	FromNumber  string `json:"from_number,omitempty"`
-	CloudRate string `json:"cloud_rate,omitempty"`
-	MessageType   string `json:"message_type,omitempty"`
-	ResourceURI    string `json:"resource_uri,omitempty"`
-	CarrierRate string `json:"carrier_rate,omitempty"`
+	ToNumber         string `json:"to_number,omitempty"`
+	FromNumber       string `json:"from_number,omitempty"`
+	CloudRate        string `json:"cloud_rate,omitempty"`
+	MessageType      string `json:"message_type,omitempty"`
+	ResourceURI      string `json:"resource_uri,omitempty"`
+	CarrierRate      string `json:"carrier_rate,omitempty"`
 	MessageDirection string `json:"message_direction,omitempty"`
-	MessageState string `json:"message_state,omitempty"`
-	TotalAmount string `json:"total_amount,omitempty"`
-	MessageUUID string `json:"message_uuid,omitempty"`
-	MessageTime string `json:"message_time,omitempty"`
+	MessageState     string `json:"message_state,omitempty"`
+	TotalAmount      string `json:"total_amount,omitempty"`
+	MessageUUID      string `json:"message_uuid,omitempty"`
+	MessageTime      string `json:"message_time,omitempty"`
 }
 
 // Stores response for ending a message.
@@ -51,13 +51,13 @@ func (c *MessageService) Send(mp *MessageSendParams) (*Response, error) {
 }
 
 type MessageGetAllParams struct {
-	Limit         int64  `json:"limit:omitempty"`
-	Offset        int64  `json:"offset:omitempty"`
+	Limit  int64 `json:"limit:omitempty"`
+	Offset int64 `json:"offset:omitempty"`
 }
 
 type MessageGetAllResponseBody struct {
-	ApiID   string  `json:"api_id"`
-	Meta    *Meta   `json:"meta"`
+	ApiID   string     `json:"api_id"`
+	Meta    *Meta      `json:"meta"`
 	Objects []*Message `json:"objects"`
 }
 

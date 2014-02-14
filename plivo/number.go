@@ -1,4 +1,4 @@
-// Public Domain (-) 2013 The GoPlivo Authors.
+// Public Domain (-) 2013-2014 The GoPlivo Authors.
 // See the GoPlivo UNLICENSE file for details.
 
 package plivo
@@ -22,7 +22,7 @@ type Number struct {
 	Prefix     string `json:"string,omitempty"`
 	SetupRate  string `json:"setup_rate,omitempty"`
 	RentalRate string `json:"rental_rate,omitempty"`
-	Stock      int64 `json:"stock,omitempty"`
+	Stock      int64  `json:"stock,omitempty"`
 	VoiceRate  string `json:"voice_rate,omitempty"`
 	SMSRate    string `json:"sms_rate,omitempty"`
 }

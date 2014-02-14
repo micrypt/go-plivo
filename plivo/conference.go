@@ -1,4 +1,4 @@
-// Public Domain (-) 2013 The GoPlivo Authors.
+// Public Domain (-) 2013-2014 The GoPlivo Authors.
 // See the GoPlivo UNLICENSE file for details.
 
 package plivo
@@ -80,41 +80,41 @@ func (s *ConferenceService) HangupMember(name, member string) (*Response, error)
 		return nil, err
 	}
 	resp, err := s.client.Do(req, nil)
-	return resp, err	
+	return resp, err
 }
 
 // KickMembers kicks member(s).
-func (s *ConferenceService) KickMembers(name, members string) (*Response, error) {	
+func (s *ConferenceService) KickMembers(name, members string) (*Response, error) {
 	req, err := s.client.NewRequest("DELETE", s.client.authID+"/Conference/"+name+"/Member/"+members+"/Kick/", nil)
 	if err != nil {
 		return nil, err
 	}
 	resp, err := s.client.Do(req, nil)
-	return resp, err	
+	return resp, err
 }
 
 // MuteMembers mutes member(s).
-func (s *ConferenceService) MuteMembers(name, members string) (*Response, error) {	
+func (s *ConferenceService) MuteMembers(name, members string) (*Response, error) {
 	req, err := s.client.NewRequest("POST", s.client.authID+"/Conference/"+name+"/Member/"+members+"/Mute/", nil)
 	if err != nil {
 		return nil, err
 	}
 	resp, err := s.client.Do(req, nil)
-	return resp, err	
+	return resp, err
 }
 
 // UnmuteMembers unmutes member(s).
-	func (s *ConferenceService) UnmuteMembers(name, members string) (*Response, error) {	
+func (s *ConferenceService) UnmuteMembers(name, members string) (*Response, error) {
 	req, err := s.client.NewRequest("DELETE", s.client.authID+"/Conference/"+name+"/Member/"+members+"/Mute/", nil)
 	if err != nil {
 		return nil, err
 	}
 	resp, err := s.client.Do(req, nil)
-	return resp, err	
+	return resp, err
 }
 
 // Play starts playing sound to member(s).
-func (s *ConferenceService) Play(name, members, url string) (*Response, error) {	
+func (s *ConferenceService) Play(name, members, url string) (*Response, error) {
 	rp := struct{ URL string }{url}
 	req, err := s.client.NewRequest("POST", s.client.authID+"/Conference/"+name+"/Member/"+members+"/Play/", rp)
 	if err != nil {
@@ -122,17 +122,17 @@ func (s *ConferenceService) Play(name, members, url string) (*Response, error) {
 	}
 	req.Header.Add("Content-Type", "application/json")
 	resp, err := s.client.Do(req, nil)
-	return resp, err	
+	return resp, err
 }
 
 // StopPlaying stops playing sound to member(s).
-func (s *ConferenceService) StopPlaying(name, members string) (*Response, error) {	
+func (s *ConferenceService) StopPlaying(name, members string) (*Response, error) {
 	req, err := s.client.NewRequest("DELETE", s.client.authID+"/Conference/"+name+"/Member/"+members+"/Play/", nil)
 	if err != nil {
 		return nil, err
 	}
 	resp, err := s.client.Do(req, nil)
-	return resp, err	
+	return resp, err
 }
 
 type ConferenceSpeakParams struct {
@@ -159,23 +159,23 @@ func (c *ConferenceService) Speak(name, members string, cp *ConferenceSpeakParam
 }
 
 // DisableHearingMembers makes member(s) deaf.
-func (s *ConferenceService) DisableHearingMembers(name, members string) (*Response, error) {	
+func (s *ConferenceService) DisableHearingMembers(name, members string) (*Response, error) {
 	req, err := s.client.NewRequest("POST", s.client.authID+"/Conference/"+name+"/Member/"+members+"/Deaf/", nil)
 	if err != nil {
 		return nil, err
 	}
 	resp, err := s.client.Do(req, nil)
-	return resp, err	
+	return resp, err
 }
 
 //EnableHearingMembers enables hearing for member(s).
-func (s *ConferenceService) EnableHearingMembers(name, members string) (*Response, error) {	
+func (s *ConferenceService) EnableHearingMembers(name, members string) (*Response, error) {
 	req, err := s.client.NewRequest("DELETE", s.client.authID+"/Conference/"+name+"/Member/"+members+"/Deaf/", nil)
 	if err != nil {
 		return nil, err
 	}
 	resp, err := s.client.Do(req, nil)
-	return resp, err	
+	return resp, err
 }
 
 type ConferenceRecordParams struct {
