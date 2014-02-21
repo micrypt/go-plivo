@@ -25,7 +25,7 @@ Usage
 To affirm that a Contribution to The Work is covered by this Unlicense, add an
 informative header like::
 
-    # Public Domain (-) 2013 The GoPlivo Authors.
+    # Public Domain (-) 2013-2014 The GoPlivo Authors.
     # See the GoPlivo UNLICENSE file for details.
 
 If the Contribution is to an existing Third Party Work, then it can be affirmed
