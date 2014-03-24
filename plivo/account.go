@@ -60,7 +60,7 @@ func (s *AccountService) Get() (*Account, *Response, error) {
 	return aResp, resp, err
 }
 
-// Stores response for Modify call
+// Stores response for Modify call.
 type ModifyResponseBody struct {
 	Message string `json:"message"`
 	ApiID   string `json:"api_id"`
@@ -80,7 +80,7 @@ func (s *AccountService) Modify(acc *Account) (*Account, *Response, error) {
 	return acc, resp, err
 }
 
-// Stores response for CreateSubaccount call
+// Stores response for CreateSubaccount call.
 type CreateResponseBody struct {
 	AuthToken string `json:"auth_token"`
 	Message   string `json:"message"`
@@ -88,7 +88,7 @@ type CreateResponseBody struct {
 	AuthID    string `json:"auth_id"`
 }
 
-// CreateSubaccount creates a subaccount
+// CreateSubaccount creates a subaccount.
 func (s *AccountService) CreateSubaccount(sacc *Subaccount) (*Response, error) {
 
 	req, err := s.client.NewRequest("POST", s.client.authID+"/Subaccount/", sacc)
@@ -103,7 +103,7 @@ func (s *AccountService) CreateSubaccount(sacc *Subaccount) (*Response, error) {
 	return resp, err
 }
 
-// ModifySubaccount edits a subaccount
+// ModifySubaccount edits a subaccount.
 func (s *AccountService) ModifySubaccount(sacc *Subaccount) (*Subaccount, *Response, error) {
 	req, err := s.client.NewRequest("POST", s.client.authID+"/Subaccount/"+sacc.AuthID+"/", sacc)
 	if err != nil {
