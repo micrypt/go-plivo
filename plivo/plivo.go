@@ -45,7 +45,7 @@ type Client struct {
 	authToken string
 }
 
-// NewClient returns a new Plivo API client. If client is nil http.DefaultClient will be used
+// NewClient returns a new Plivo API client. If client is nil, http.DefaultClient will be used.
 func NewClient(client *http.Client, authID, authToken string) *Client {
 	baseURL, _ := url.Parse(fmt.Sprintf(defaultBaseURL, apiVersion))
 
