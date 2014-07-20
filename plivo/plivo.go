@@ -7,10 +7,11 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
-	"github.com/google/go-querystring/query"
 	"io/ioutil"
 	"net/http"
 	"net/url"
+
+	"github.com/google/go-querystring/query"
 )
 
 const (
@@ -44,12 +45,15 @@ type Client struct {
 	authToken string
 }
 
-// NewClient returns a new Plivo API client.
-func NewClient(authID, authToken string) *Client {
-
+// NewClient returns a new Plivo API client. If client is nil http.DefaultClient will be used
+func NewClient(client *http.Client, authID, authToken string) *Client {
 	baseURL, _ := url.Parse(fmt.Sprintf(defaultBaseURL, apiVersion))
 
-	c := &Client{client: http.DefaultClient, BaseURL: baseURL, UserAgent: userAgent, authID: authID, authToken: authToken}
+	if client == nil {
+		client = http.DefaultClient
+	}
+
+	c := &Client{client: client, BaseURL: baseURL, UserAgent: userAgent, authID: authID, authToken: authToken}
 	c.Account = &AccountService{client: c}
 	c.Application = &ApplicationService{client: c}
 	c.Call = &CallService{client: c}
