@@ -48,7 +48,7 @@ func setup() {
 
 func TestAccountGet(t *testing.T) {
 	setup()
-	client = NewClient(authID, authToken)
+	client = NewClient(nil, authID, authToken)
 	acc, _, err := client.Account.Get()
 	if err != nil {
 		t.Errorf("AccountGet failed: %v", err)
@@ -59,7 +59,7 @@ func TestAccountGet(t *testing.T) {
 
 func TestAccountModify(t *testing.T) {
 	setup()
-	client = NewClient(authID, authToken)
+	client = NewClient(nil, authID, authToken)
 	acc := &Account{Name: "Test Name", City: "Test City", Address: "Test Address", AuthID: authID}
 	acc, _, err := client.Account.Modify(acc)
 	if err != nil {
@@ -70,7 +70,7 @@ func TestAccountModify(t *testing.T) {
 
 func TestAccountCreateSubaccount(t *testing.T) {
 	setup()
-	client = NewClient(authID, authToken)
+	client = NewClient(nil, authID, authToken)
 	sacc := &Subaccount{Name: testAccount, Enabled: false}
 	_, err := client.Account.CreateSubaccount(sacc)
 	if err != nil {
@@ -82,9 +82,9 @@ func TestAccountCreateSubaccount(t *testing.T) {
 
 func TestAccountModifySubaccount(t *testing.T) {
 	setup()
-	client = NewClient(authID, authToken)
+	client = NewClient(nil, authID, authToken)
 	sacc := &Subaccount{Name: testAccount + "_mod", Enabled: false}
-	 _, err := client.Account.CreateSubaccount(sacc)
+	_, err := client.Account.CreateSubaccount(sacc)
 	if err != nil {
 		t.Errorf("TestAccountModifySubaccount failed at account creation: %v", err)
 	}
@@ -99,7 +99,7 @@ func TestAccountModifySubaccount(t *testing.T) {
 
 func TestAccountGetSubaccount(t *testing.T) {
 	setup()
-	client = NewClient(authID, authToken)
+	client = NewClient(nil, authID, authToken)
 
 	sacc := &Subaccount{Name: testAccount + "_get", Enabled: false}
 	_, err := client.Account.CreateSubaccount(sacc)
@@ -117,7 +117,7 @@ func TestAccountGetSubaccount(t *testing.T) {
 
 func TestAccountGetSubaccounts(t *testing.T) {
 	setup()
-	client = NewClient(authID, authToken)
+	client = NewClient(nil, authID, authToken)
 
 	for i := 0; i < 2; i++ {
 		sacc := &Subaccount{Name: testAccount + fmt.Sprintf("_get_mult_%d", i), Enabled: false}
@@ -136,7 +136,7 @@ func TestAccountGetSubaccounts(t *testing.T) {
 
 func TestAccountDeleteSubaccount(t *testing.T) {
 	setup()
-	client = NewClient(authID, authToken)
+	client = NewClient(nil, authID, authToken)
 
 	sacc := &Subaccount{Name: testAccount + "_del", Enabled: false}
 	_, err := client.Account.CreateSubaccount(sacc)
@@ -154,7 +154,7 @@ func TestAccountDeleteSubaccount(t *testing.T) {
 
 func TestApplicationCreate(t *testing.T) {
 	setup()
-	client = NewClient(authID, authToken)
+	client = NewClient(nil, authID, authToken)
 	app := &Application{AnswerURL: AnswerURL, AppName: "Test App (Create)"}
 	app, _, err := client.Application.Create(app)
 	if err != nil {
@@ -165,7 +165,7 @@ func TestApplicationCreate(t *testing.T) {
 
 func TestApplicationGetApplications(t *testing.T) {
 	setup()
-	client = NewClient(authID, authToken)
+	client = NewClient(nil, authID, authToken)
 	apps, _, err := client.Application.GetApplications(0, 0)
 	if err != nil {
 		t.Errorf("ApplicationGetApplications failed: %v", err)
@@ -176,7 +176,7 @@ func TestApplicationGetApplications(t *testing.T) {
 
 func TestApplicationGet(t *testing.T) {
 	setup()
-	client = NewClient(authID, authToken)
+	client = NewClient(nil, authID, authToken)
 
 	app := &Application{AnswerURL: "http://example.com/answer/", AppName: "Test App (Get)"}
 	app, _, err := client.Application.Create(app)
@@ -194,7 +194,7 @@ func TestApplicationGet(t *testing.T) {
 
 func TestApplicationDelete(t *testing.T) {
 	setup()
-	client = NewClient(authID, authToken)
+	client = NewClient(nil, authID, authToken)
 
 	app := &Application{AnswerURL: AnswerURL, AppName: "Test App (Delete)"}
 	app, _, err := client.Application.Create(app)
@@ -212,7 +212,7 @@ func TestApplicationDelete(t *testing.T) {
 
 func TestCallMake(t *testing.T) {
 	setup()
-	client = NewClient(authID, authToken)
+	client = NewClient(nil, authID, authToken)
 	cp := &CallMakeParams{From: FromNumber, To: ToNumber, AnswerURL: AnswerURL}
 	_, err := client.Call.Make(cp)
 	if err != nil {
@@ -223,7 +223,7 @@ func TestCallMake(t *testing.T) {
 
 func TestCallGetAll(t *testing.T) {
 	setup()
-	client = NewClient(authID, authToken)
+	client = NewClient(nil, authID, authToken)
 	cp := &CallGetAllParams{}
 	calls, _, err := client.Call.GetAll(cp)
 	if err != nil {
@@ -235,7 +235,7 @@ func TestCallGetAll(t *testing.T) {
 // TODO: Iterate through calls returned by GetAll to fix TestCallGet
 // func TestCallGet(t *testing.T) {
 // 	setup()
-// 	client = NewClient(authID, authToken)
+// 	client = NewClient(nil, authID, authToken)
 // 	c := &Call{CallUUID: ""}
 // 	call, _, err := client.Call.Get(c.CallUUID)
 // 	if err != nil {
@@ -247,7 +247,7 @@ func TestCallGetAll(t *testing.T) {
 // TODO: Getting Live Calls isn't quite straightforward to test, but unlikely to be broken.
 // func TestCallGetAllLive(t *testing.T) {
 // 	setup()
-// 	client = NewClient(authID, authToken)
+// 	client = NewClient(nil, authID, authToken)
 // 	calls, _, err := client.Call.GetAllLive()
 // 	if err != nil {
 // 		t.Errorf("CallGetAllLive failed: %v", err)
