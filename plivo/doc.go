@@ -9,12 +9,12 @@ http://godoc.org/github.com/micrypt/go-plivo/plivo
 A short example of retrieving account details:
 
   func main() {
-    client = plivo.NewClient(authID, authToken)
+    client := plivo.NewClient(nil, authID, authToken)
     acc, _, err := client.Account.Get()
     if err != nil {
-      t.Errorf("AccountGet failed: %v", err)
+      log.Fatalf("AccountGet failed: %v", err)
     } else {
-      t.Logf("Account: %v\n", acc)
+      log.Printf("Account: %v\n", acc)
     }
   }
 */
