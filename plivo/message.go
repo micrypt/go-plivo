@@ -33,21 +33,22 @@ type Message struct {
 
 // Stores response for ending a message.
 type MessageSendResponseBody struct {
-	Message     string `json:"message"`
-	ApiID       string `json:"api_id"`
-	MessageUUID string `json:"message_uuid"`
+	Message     string   `json:"message"`
+	ApiID       string   `json:"api_id"`
+	MessageUUID []string `json:"message_uuid"`
+	Error       string   `json:"error"`
 }
 
 // Make creates a call.
-func (c *MessageService) Send(mp *MessageSendParams) (*Response, error) {
+func (c *MessageService) Send(mp *MessageSendParams) (*MessageSendResponseBody, *Response, error) {
 	req, err := c.client.NewRequest("POST", c.client.authID+"/Message/", mp)
 	if err != nil {
-		return nil, err
+		return nil, nil, err
 	}
 	aResp := &MessageSendResponseBody{}
 	req.Header.Add("Content-Type", "application/json")
 	resp, err := c.client.Do(req, aResp)
-	return resp, err
+	return aResp, resp, err
 }
 
 type MessageGetAllParams struct {
