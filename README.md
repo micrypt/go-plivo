@@ -1,7 +1,9 @@
 go-plivo
 ========
 
-A Go client for the Plivo.com API.
+A Go client for the Plivo.com API. 
+
+*Preserved for historical purposes. Not currently maintained.*
 
 **Installation**
 
