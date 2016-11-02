@@ -3,6 +3,7 @@ package plivo
 import (
 	"encoding/json"
 	"fmt"
+	"github.com/stretchr/testify/assert"
 	"io/ioutil"
 	"testing"
 	"time"
@@ -44,6 +45,12 @@ func setup() {
 	FromNumber = config["from_number"]
 	ToNumber = config["to_number"]
 	AnswerURL = config["answer_url"]
+}
+
+func TestNewClientURL(t *testing.T) {
+	expectedClientURL := "https://api.plivo.com/v1/Account/"
+	client := NewClient(nil, authID, authToken)
+	assert.Equal(t, client.BaseURL.String(), expectedClientURL, "urls should be equal")
 }
 
 func TestAccountGet(t *testing.T) {
