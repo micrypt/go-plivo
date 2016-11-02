@@ -16,8 +16,9 @@ import (
 
 const (
 	libraryVersion = "0.1"
+	defaultScheme  = "https"
 	defaultHost    = "api.plivo.com"
-	defaultBaseURL = "https://%s/%s/Account/"
+	defaultBaseURL = "%s://%s/%s/Account/"
 	userAgent      = "go-plivo/" + libraryVersion
 	apiVersion     = "v1"
 )
@@ -48,12 +49,12 @@ type Client struct {
 
 // NewClient returns a new Plivo API client. If client is nil, http.DefaultClient will be used.
 func NewClient(client *http.Client, authID, authToken string) *Client {
-	return NewClientWithHost(client, authID, authToken, defaultHost)
+	return NewClientWithHost(client, authID, authToken, defaultHost, defaultScheme)
 }
 
 // NewClientWithHost returns a new Plivo API client with specified host.
-func NewClientWithHost(client *http.Client, authID, authToken string, host string) *Client {
-	baseURL, _ := url.Parse(fmt.Sprintf(defaultBaseURL, host, apiVersion))
+func NewClientWithHost(client *http.Client, authID, authToken, host, scheme string) *Client {
+	baseURL, _ := url.Parse(fmt.Sprintf(defaultBaseURL, scheme, host, apiVersion))
 
 	if client == nil {
 		client = http.DefaultClient
