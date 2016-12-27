@@ -143,6 +143,10 @@ func (c *Client) Do(req *http.Request, v interface{}) (*Response, error) {
 		return response, err
 	}
 
+	if v != nil {
+		err = json.NewDecoder(resp.Body).Decode(v)
+	}
+
 	return response, err
 }
 
@@ -187,9 +191,7 @@ func checkResponse(r *http.Response, v interface{}) error {
 	}
 
 	if v != nil {
-		if err := json.Unmarshal(data, v); err != nil {
-			return err
-		}
+		json.Unmarshal(data, v)
 	}
 
 	return errorResponse
