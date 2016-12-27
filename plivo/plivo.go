@@ -137,14 +137,10 @@ func (c *Client) Do(req *http.Request, v interface{}) (*Response, error) {
 
 	response := newResponse(resp)
 
-	err = checkResponse(resp)
+	err = checkResponse(resp, v)
 	if err != nil {
 		// Even though there was an error, return the response so that the caller can inspect it.
 		return response, err
-	}
-
-	if v != nil {
-		err = json.NewDecoder(resp.Body).Decode(v)
 	}
 
 	return response, err
@@ -179,15 +175,23 @@ func (e *Error) Error() string {
 
 // checkResponse checks the API response for errors and returns them if present.
 // A response if considered an error if it has a status code outside the 200 range.
-func checkResponse(r *http.Response) error {
+func checkResponse(r *http.Response, v interface{}) error {
 	if c := r.StatusCode; 200 <= c && c <= 299 {
 		return nil
 	}
 	errorResponse := &ErrorResponse{Response: r}
+
 	data, err := ioutil.ReadAll(r.Body)
 	if err != nil && data != nil {
 		json.Unmarshal(data, errorResponse)
 	}
+
+	if v != nil {
+		if err := json.Unmarshal(data, v); err != nil {
+			return err
+		}
+	}
+
 	return errorResponse
 }
 
